@@ -18,10 +18,16 @@
     header {
       text-align: center;
       padding: 20px;
-      font-size: 2em;
+      font-size: 2.5em;
       font-weight: bold;
       text-shadow: 0 0 20px #ff79c6;
       background: #222;
+      animation: headerTextEffect 1.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes headerTextEffect {
+      0% { text-shadow: 0 0 20px #ff79c6; }
+      100% { text-shadow: 0 0 30px #ff79c6, 0 0 50px #ff79c6, 0 0 100px #ff79c6; }
     }
 
     .intro, .container, .details {
@@ -32,6 +38,7 @@
       flex-direction: column;
       text-align: center;
       padding: 20px;
+      animation: fadeIn 1s ease-in-out;
     }
 
     .intro {
@@ -54,10 +61,21 @@
       100% { background-size: 100%; }
     }
 
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
     .intro h2 {
       font-size: 2.5em;
       margin-bottom: 20px;
       text-shadow: 0 0 20px #ff79c6;
+      animation: textGlow 1.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes textGlow {
+      0% { color: #fff; text-shadow: 0 0 10px #ff79c6; }
+      100% { color: #ff79c6; text-shadow: 0 0 30px #ff79c6, 0 0 50px #ff79c6; }
     }
 
     .intro button {
@@ -69,6 +87,20 @@
       color: #ff79c6;
       cursor: pointer;
       box-shadow: 0 0 25px #ff79c6;
+      transition: all 0.3s ease;
+      animation: buttonEffect 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes buttonEffect {
+      0% { transform: scale(1); background: rgba(0, 0, 0, 0.7); }
+      50% { transform: scale(1.05); background: rgba(0, 0, 0, 0.8); }
+      100% { transform: scale(1); background: rgba(0, 0, 0, 0.7); }
+    }
+
+    .intro button:hover {
+      background: #ff79c6;
+      color: #000;
+      transform: scale(1.1);
     }
 
     .card {
@@ -81,10 +113,13 @@
       max-width: 600px;
       cursor: pointer;
       transition: 0.3s;
+      animation: cardEffect 1.5s ease-in-out infinite alternate;
     }
 
-    .card:hover {
-      transform: scale(1.03);
+    @keyframes cardEffect {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+      100% { transform: scale(1); }
     }
 
     .card h2 { color: #ff79c6; }
@@ -106,6 +141,12 @@
       border-radius: 10px;
       cursor: pointer;
       color: #000;
+      transition: all 0.3s ease;
+    }
+
+    .back-btn:hover {
+      background: #e6b3d3;
+      transform: scale(1.05);
     }
 
     @media (max-width: 768px) {
@@ -141,10 +182,33 @@
   const page2 = document.getElementById("page2");
   const page3 = document.getElementById("page3");
 
+  // Fetch the APIs from api.json
+  async function fetchAPIs() {
+    try {
+      const response = await fetch('api.json'); // Adjust the path as needed if it's on a server
+      const apiList = await response.json();
+
+      apiList.forEach(api => {
+        const apiCard = document.createElement("div");
+        apiCard.classList.add("card");
+        apiCard.innerHTML = `
+          <h2>${api.name}</h2>
+          <p>${api.description}</p>
+          <button onclick="goToPage3(${JSON.stringify(api)})">Learn More</button>
+        `;
+        page2.appendChild(apiCard);
+      });
+
+      page2.style.display = "flex";
+    } catch (error) {
+      console.error('Error loading API data:', error);
+    }
+  }
+
   function goToPage2() {
     page1.style.display = "none";
     page2.style.display = "flex";
-    loadAPIs();
+    fetchAPIs();  // Fetch and display APIs on page 2
   }
 
   function goToPage3(api) {
@@ -162,21 +226,6 @@
   function goBackToPage2() {
     page3.style.display = "none";
     page2.style.display = "flex";
-  }
-
-  function loadAPIs() {
-    fetch('api.json')
-      .then(res => res.json())
-      .then(data => {
-        page2.innerHTML = '';
-        data.apis.forEach(api => {
-          const div = document.createElement("div");
-          div.className = "card";
-          div.innerHTML = `<h2>${api.name}</h2><p>${api.description}</p>`;
-          div.onclick = () => goToPage3(api);
-          page2.appendChild(div);
-        });
-      });
   }
 </script>
 
