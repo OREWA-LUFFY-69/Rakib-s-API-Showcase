@@ -17,22 +17,25 @@
       background: #111;
       color: #fff;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     header {
       text-align: center;
-      padding: 40px;
-      font-size: 4em;
+      padding: 20px;
+      font-size: 2em;
       color: white;
       position: relative;
       font-weight: bold;
       letter-spacing: 2px;
       text-shadow: 0 0 20px #ff79c6;
-      background-color: #222; /* Simple background color for the first page */
+      background-color: #222;
     }
 
     .intro {
-      height: 100vh;
+      flex-grow: 1;
       background: url('https://i.imgur.com/wMlRSuV.png') no-repeat center center/cover;
       background-attachment: fixed;
       display: flex;
@@ -50,7 +53,7 @@
     }
 
     .intro h2 {
-      font-size: 3.5em;
+      font-size: 2.5em;
       margin-bottom: 20px;
       text-shadow: 0 0 20px #ff79c6;
       animation: textFadeIn 2s ease-out;
@@ -65,15 +68,13 @@
       background: rgba(0, 0, 0, 0.7);
       border: 2px solid #ff79c6;
       padding: 20px 50px;
-      font-size: 1.6em;
+      font-size: 1.4em;
       border-radius: 12px;
       color: #ff79c6;
       cursor: pointer;
       transition: 0.4s ease;
       box-shadow: 0 0 25px #ff79c6;
       animation: pulse 2s infinite ease-in-out;
-      position: relative;
-      overflow: hidden;
     }
 
     .intro button:hover {
@@ -221,6 +222,42 @@
         left: 80%;
       }
     }
+
+    /* Media Queries for Mobile Responsiveness */
+    @media (max-width: 768px) {
+      header {
+        font-size: 1.5em;
+      }
+
+      .intro h2 {
+        font-size: 2em;
+      }
+
+      .intro button {
+        font-size: 1.2em;
+        padding: 15px 40px;
+      }
+
+      .container {
+        padding: 30px 15px;
+      }
+
+      .card {
+        padding: 20px;
+      }
+
+      .card h2 {
+        font-size: 1.5em;
+      }
+
+      .card p {
+        font-size: 0.9em;
+      }
+
+      footer {
+        font-size: 12px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -229,9 +266,7 @@
     Rakib's Premium API Showcase
   </header>
 
-  <div class="falling-flowers" id="fallingFlowers">
-    <!-- Falling roses will be dynamically added here -->
-  </div>
+  <div class="falling-flowers" id="fallingFlowers"></div>
 
   <div class="intro">
     <h2>Welcome to the Future of APIs</h2>
@@ -265,7 +300,6 @@
     function navigateToPage() {
       const nextPageContent = document.getElementById('nextPageContent');
       const button = document.querySelector('.intro button');
-
       const clickSound = new Audio('https://www.soundjay.com/button/beep-07.wav');
       clickSound.play();
 
@@ -276,24 +310,19 @@
       }, 1000);
     }
 
-    // Function to create falling roses randomly
     function createFallingRoses() {
       const flowerContainer = document.getElementById('fallingFlowers');
-      const totalFlowers = 30; // Number of roses to fall
+      const totalFlowers = 30;
 
       for (let i = 0; i < totalFlowers; i++) {
         const flower = document.createElement('span');
-        
-        // Randomizing the initial position and animation timing
         flower.style.left = Math.random() * 100 + '%';
-        flower.style.animationDuration = Math.random() * 5 + 5 + 's'; // Random fall speed
-        flower.style.animationDelay = Math.random() * 5 + 's'; // Random start delay
-
+        flower.style.animationDuration = Math.random() * 5 + 5 + 's';
+        flower.style.animationDelay = Math.random() * 5 + 's';
         flowerContainer.appendChild(flower);
       }
     }
 
-    // Call function to create roses on page load
     createFallingRoses();
   </script>
 </body>
