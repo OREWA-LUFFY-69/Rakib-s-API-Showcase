@@ -24,29 +24,6 @@
       background: #222;
     }
 
-    .falling-flowers {
-      position: absolute; top: 0; left: 0;
-      pointer-events: none;
-      z-index: 999;
-    }
-
-    .falling-flowers span {
-      position: absolute;
-      font-size: 3em;
-      animation: fallEffect 10s linear infinite, horizontalMovement 3s ease-in-out infinite;
-    }
-
-    @keyframes fallEffect {
-      0% { top: -50px; opacity: 1; }
-      100% { top: 100vh; opacity: 0; }
-    }
-
-    @keyframes horizontalMovement {
-      0% { left: 0; } 25% { left: 20%; }
-      50% { left: 40%; } 75% { left: 60%; }
-      100% { left: 80%; }
-    }
-
     .intro, .container, .details {
       flex-grow: 1;
       display: none;
@@ -141,7 +118,6 @@
 <body>
 
 <header>Rakib's Premium API Showcase</header>
-<div class="falling-flowers" id="fallingFlowers"></div>
 
 <!-- Page 1 -->
 <div class="intro" id="page1">
@@ -202,22 +178,6 @@
         });
       });
   }
-
-  function createFallingRoses() {
-    const flowerContainer = document.getElementById('fallingFlowers');
-    const totalFlowers = 25;
-
-    for (let i = 0; i < totalFlowers; i++) {
-      const flower = document.createElement('span');
-      flower.innerText = '❀';
-      flower.style.left = Math.random() * 100 + '%';
-      flower.style.animationDuration = Math.random() * 5 + 5 + 's';
-      flower.style.animationDelay = Math.random() * 5 + 's';
-      flowerContainer.appendChild(flower);
-    }
-  }
-
-  createFallingRoses();
 </script>
 
 </body>
