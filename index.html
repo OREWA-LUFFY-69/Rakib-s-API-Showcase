@@ -148,6 +148,45 @@
       transform: scale(1.05);
     }
 
+    .copy-btn {
+      margin-top: 20px;
+      padding: 10px 30px;
+      font-size: 1.2em;
+      background: #ff79c6;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      color: #000;
+      transition: 0.3s;
+    }
+
+    .copy-btn:hover {
+      background: #f5578e;
+      transform: scale(1.05);
+    }
+
+    /* Pop-up Message Styles */
+    #copy-msg {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      padding: 20px 40px;
+      border-radius: 12px;
+      font-size: 1.5em;
+      display: none;
+      z-index: 1000;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      animation: popUp 0.5s ease-out;
+    }
+
+    @keyframes popUp {
+      0% { transform: translate(-50%, -50%) scale(0); }
+      100% { transform: translate(-50%, -50%) scale(1); }
+    }
+
     @media (max-width: 768px) {
       .intro h2 { font-size: 2em; }
       .intro button { font-size: 1.1em; }
@@ -172,6 +211,9 @@
 <!-- Page 3 -->
 <div class="details" id="page3"></div>
 
+<!-- Pop-up message -->
+<div id="copy-msg">Copied!😘</div>
+
 <footer>
   <p>Contact: <a href="https://wa.me/+8801811276038" target="_blank">WhatsApp</a> | 
   <a href="https://www.facebook.com/RAKIB.404X" target="_blank">Facebook</a></p>
@@ -181,6 +223,7 @@
   const page1 = document.getElementById("page1");
   const page2 = document.getElementById("page2");
   const page3 = document.getElementById("page3");
+  const copyMsg = document.getElementById("copy-msg");
 
   function goToPage2() {
     page1.style.display = "none";
@@ -194,8 +237,9 @@
 
     page3.innerHTML = `
       <h2>${api.name}</h2>
-      <p>${api.description}</p>
-      <a href="${api.url}" target="_blank">Visit API</a>
+      <p id="api-description">${api.description}</p>
+      <a href="${api.url}" target="_blank">Visit Cmds</a>
+      <button class="copy-btn" onclick="copyText()">Copy</button>
       <button class="back-btn" onclick="goBackToPage2()">Back</button>
     `;
   }
@@ -218,6 +262,28 @@
           page2.appendChild(div);
         });
       });
+  }
+
+  // Copy text function
+  function copyText() {
+    // Select the text inside the description
+    const text = document.getElementById("api-description").innerText;
+
+    // Create a temporary textarea to copy the text
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textArea);
+
+    // Display the pop-up message
+    copyMsg.style.display = "block";
+
+    // Hide the pop-up message after 2 seconds
+    setTimeout(() => {
+      copyMsg.style.display = "none";
+    }, 2000);
   }
 </script>
 
