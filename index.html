@@ -5,12 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rakib's Premium API Showcase</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body, html {
       font-family: 'Segoe UI', sans-serif;
       height: 100vh;
@@ -19,31 +14,61 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
     }
-
     header {
       text-align: center;
       padding: 20px;
       font-size: 2em;
-      color: white;
-      position: relative;
       font-weight: bold;
-      letter-spacing: 2px;
       text-shadow: 0 0 20px #ff79c6;
-      background-color: #222;
+      background: #222;
     }
 
-    .intro {
+    .falling-flowers {
+      position: absolute; top: 0; left: 0;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    .falling-flowers span {
+      position: absolute;
+      font-size: 3em;
+      animation: fallEffect 10s linear infinite, horizontalMovement 3s ease-in-out infinite;
+    }
+
+    @keyframes fallEffect {
+      0% { top: -50px; opacity: 1; }
+      100% { top: 100vh; opacity: 0; }
+    }
+
+    @keyframes horizontalMovement {
+      0% { left: 0; } 25% { left: 20%; }
+      50% { left: 40%; } 75% { left: 60%; }
+      100% { left: 80%; }
+    }
+
+    .intro, .container, .details {
       flex-grow: 1;
-      background: url('https://i.imgur.com/wMlRSuV.png') no-repeat center center/cover;
-      background-attachment: fixed;
-      display: flex;
+      display: none;
       justify-content: center;
       align-items: center;
       flex-direction: column;
       text-align: center;
+      padding: 20px;
+    }
+
+    .intro {
+      background: url('https://i.imgur.com/wMlRSuV.png') no-repeat center center/cover;
       animation: zoomBg 40s infinite linear;
+      display: flex;
+    }
+
+    .container {
+      background: url('https://i.imgur.com/Dcbv1TW.png') no-repeat center center/cover;
+    }
+
+    .details {
+      background: url('https://i.imgur.com/3v1QaOR.png') no-repeat center center/cover;
     }
 
     @keyframes zoomBg {
@@ -56,12 +81,6 @@
       font-size: 2.5em;
       margin-bottom: 20px;
       text-shadow: 0 0 20px #ff79c6;
-      animation: textFadeIn 2s ease-out;
-    }
-
-    @keyframes textFadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
     }
 
     .intro button {
@@ -72,48 +91,7 @@
       border-radius: 12px;
       color: #ff79c6;
       cursor: pointer;
-      transition: 0.4s ease;
       box-shadow: 0 0 25px #ff79c6;
-      animation: pulse 2s infinite ease-in-out;
-    }
-
-    .intro button:hover {
-      background: #ff79c6;
-      color: #000;
-    }
-
-    .intro button::after {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 300%;
-      height: 300%;
-      background: rgba(255, 255, 255, 0.1);
-      transition: 0.6s ease;
-      transform: translate(-50%, -50%) scale(0);
-      border-radius: 50%;
-    }
-
-    .intro button:active::after {
-      transform: translate(-50%, -50%) scale(1);
-      transition: 0s;
-    }
-
-    @keyframes pulse {
-      0%, 100% { box-shadow: 0 0 25px #ff79c6; }
-      50% { box-shadow: 0 0 35px #ff79c6; transform: scale(1.1); }
-    }
-
-    .container {
-      display: none;
-      flex-direction: column;
-      gap: 25px;
-      padding: 50px 20px;
-      background: url('https://i.imgur.com/3v1QaOR.png') no-repeat center center/cover; /* Add this line */
-      background-attachment: fixed;
-      transition: opacity 1s ease;
-      opacity: 0;
     }
 
     .card {
@@ -121,184 +99,126 @@
       border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 15px;
       padding: 30px;
-      backdrop-filter: blur(10px);
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeInUp 1s forwards ease;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    }
-
-    .card:nth-child(even) {
-      animation-delay: 0.3s;
-    }
-
-    .card:nth-child(odd) {
-      animation-delay: 0.6s;
-    }
-
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .card h2 {
-      color: #ff79c6;
-      margin-bottom: 15px;
-      text-shadow: 0 0 15px #ff79c6;
-    }
-
-    .card p {
-      color: #ddd;
-      margin-bottom: 15px;
-    }
-
-    .card a {
-      color: #ff79c6;
-      text-decoration: none;
-      font-weight: bold;
+      margin: 10px;
+      width: 90%;
+      max-width: 600px;
+      cursor: pointer;
       transition: 0.3s;
     }
 
-    .card a:hover {
-      color: #fff;
-      text-shadow: 0 0 10px #ff79c6;
+    .card:hover {
+      transform: scale(1.03);
     }
+
+    .card h2 { color: #ff79c6; }
+    .card p { color: #ddd; }
 
     footer {
       text-align: center;
-      padding: 20px;
-      font-size: 14px;
+      padding: 15px;
       background: #111;
       color: #aaa;
     }
 
-    footer a {
-      color: #ff79c6;
-      text-decoration: none;
+    .back-btn {
+      margin-top: 30px;
+      padding: 12px 30px;
+      font-size: 1.2em;
+      background: #ff79c6;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      color: #000;
     }
 
-    /* Media Queries for Mobile Responsiveness */
     @media (max-width: 768px) {
-      header {
-        font-size: 1.5em;
-      }
-
-      .intro h2 {
-        font-size: 2em;
-      }
-
-      .intro button {
-        font-size: 1.2em;
-        padding: 15px 40px;
-      }
-
-      .container {
-        padding: 30px 15px;
-      }
-
-      .card {
-        padding: 20px;
-      }
-
-      .card h2 {
-        font-size: 1.5em;
-      }
-
-      .card p {
-        font-size: 0.9em;
-      }
-
-      footer {
-        font-size: 12px;
-      }
+      .intro h2 { font-size: 2em; }
+      .intro button { font-size: 1.1em; }
+      .card { padding: 20px; }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    Rakib's Premium API Showcase
-  </header>
+<header>Rakib's Premium API Showcase</header>
+<div class="falling-flowers" id="fallingFlowers"></div>
 
-  <div class="falling-flowers" id="fallingFlowers"></div>
+<!-- Page 1 -->
+<div class="intro" id="page1">
+  <h2>Welcome to the Future of APIs</h2>
+  <button onclick="goToPage2()">Explore Now</button>
+</div>
 
-  <div class="intro">
-    <h2>Welcome to the Future of APIs</h2>
-    <button onclick="navigateToPage();">Explore Now</button>
-  </div>
+<!-- Page 2 -->
+<div class="container" id="page2"></div>
 
-  <div class="container" id="nextPageContent"></div>
+<!-- Page 3 -->
+<div class="details" id="page3"></div>
 
-  <footer>
-    <p>Contact me on <a href="https://wa.me/+8801811276038" target="_blank">WhatsApp</a></p>
-    <p>Follow me on <a href="https://www.facebook.com/RAKIB.404X" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" width="20" height="20"> Facebook</a></p>
-  </footer>
+<footer>
+  <p>Contact: <a href="https://wa.me/+8801811276038" target="_blank">WhatsApp</a> | 
+  <a href="https://www.facebook.com/RAKIB.404X" target="_blank">Facebook</a></p>
+</footer>
 
-  <script>
-    function navigateToPage() {
-      const nextPageContent = document.getElementById('nextPageContent');
-      const button = document.querySelector('.intro button');
-      const clickSound = new Audio('https://www.soundjay.com/button/beep-07.wav');
-      clickSound.play();
+<script>
+  const page1 = document.getElementById("page1");
+  const page2 = document.getElementById("page2");
+  const page3 = document.getElementById("page3");
 
-      setTimeout(() => {
-        document.querySelector('.intro').style.display = 'none';
-        nextPageContent.style.display = 'flex';
-        nextPageContent.style.opacity = 1;
-        loadAPIs();
-      }, 1000);
-    }
+  function goToPage2() {
+    page1.style.display = "none";
+    page2.style.display = "flex";
+    loadAPIs();
+  }
 
-    function loadAPIs() {
-      fetch('api.json')
-        .then(response => response.json())
-        .then(data => {
-          const container = document.getElementById('nextPageContent');
-          container.innerHTML = ''; // Clear any existing content
+  function goToPage3(api) {
+    page2.style.display = "none";
+    page3.style.display = "flex";
 
-          data.apis.forEach(api => {
-            const card = document.createElement('div');
-            card.classList.add('card');
-            card.innerHTML = `
-              <h2>${api.name}</h2>
-              <p>${api.description}</p>
-              <a href="${api.url}" target="_blank">Explore ${api.name}</a>
-            `;
-            card.onclick = () => showAPIPage(api);
-            container.appendChild(card);
-          });
-        })
-        .catch(error => {
-          console.error('Error loading APIs:', error);
+    page3.innerHTML = `
+      <h2>${api.name}</h2>
+      <p>${api.description}</p>
+      <a href="${api.url}" target="_blank">Visit API</a>
+      <button class="back-btn" onclick="goBackToPage2()">Back</button>
+    `;
+  }
+
+  function goBackToPage2() {
+    page3.style.display = "none";
+    page2.style.display = "flex";
+  }
+
+  function loadAPIs() {
+    fetch('api.json')
+      .then(res => res.json())
+      .then(data => {
+        page2.innerHTML = '';
+        data.apis.forEach(api => {
+          const div = document.createElement("div");
+          div.className = "card";
+          div.innerHTML = `<h2>${api.name}</h2><p>${api.description}</p>`;
+          div.onclick = () => goToPage3(api);
+          page2.appendChild(div);
         });
+      });
+  }
+
+  function createFallingRoses() {
+    const flowerContainer = document.getElementById('fallingFlowers');
+    const totalFlowers = 25;
+
+    for (let i = 0; i < totalFlowers; i++) {
+      const flower = document.createElement('span');
+      flower.innerText = '❀';
+      flower.style.left = Math.random() * 100 + '%';
+      flower.style.animationDuration = Math.random() * 5 + 5 + 's';
+      flower.style.animationDelay = Math.random() * 5 + 's';
+      flowerContainer.appendChild(flower);
     }
+  }
 
-    function showAPIPage(api) {
-      const container = document.getElementById('nextPageContent');
-      container.innerHTML = `
-        <h2>${api.name}</h2>
-        <p>${api.description}</p>
-        <a href="${api.url}" target="_blank">Explore ${api.name}</a>
-        <img src="https://i.imgur.com/3v1QaOR.png" alt="API Image" style="margin-top: 20px; width: 100%; max-width: 600px;">
-      `;
-    }
+  createFallingRoses();
+</script>
 
-    function createFallingRoses() {
-      const flowerContainer = document.getElementById('fallingFlowers');
-      const totalFlowers = 30;
-
-      for (let i = 0; i < totalFlowers; i++) {
-        const flower = document.createElement('span');
-        flower.style.left = Math.random() * 100 + '%';
-        flower.style.animationDuration = Math.random() * 5 + 5 + 's';
-        flower.style.animationDelay = Math.random() * 5 + 's';
-        flowerContainer.appendChild(flower);
-      }
-    }
-
-    createFallingRoses();
-  </script>
 </body>
 </html>
