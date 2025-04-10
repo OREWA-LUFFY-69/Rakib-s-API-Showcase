@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rakib's Premium API Showcase</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      font-family: 'Segoe UI', sans-serif;
+      height: 100vh;
+      background: #111;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px;
+      font-size: 4em;
+      color: white;
+      position: relative;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-shadow: 0 0 20px #ff79c6;
+      background-color: #222; /* Simple background color for the first page */
+    }
+
+    .intro {
+      height: 100vh;
+      background: url('https://i.imgur.com/wMlRSuV.png') no-repeat center center/cover;
+      background-attachment: fixed;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      animation: zoomBg 40s infinite linear;
+    }
+
+    @keyframes zoomBg {
+      0% { background-size: 100%; }
+      50% { background-size: 105%; }
+      100% { background-size: 100%; }
+    }
+
+    .intro h2 {
+      font-size: 3.5em;
+      margin-bottom: 20px;
+      text-shadow: 0 0 20px #ff79c6;
+      animation: textFadeIn 2s ease-out;
+    }
+
+    @keyframes textFadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .intro button {
+      background: rgba(0, 0, 0, 0.7);
+      border: 2px solid #ff79c6;
+      padding: 20px 50px;
+      font-size: 1.6em;
+      border-radius: 12px;
+      color: #ff79c6;
+      cursor: pointer;
+      transition: 0.4s ease;
+      box-shadow: 0 0 25px #ff79c6;
+      animation: pulse 2s infinite ease-in-out;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .intro button:hover {
+      background: #ff79c6;
+      color: #000;
+    }
+
+    .intro button::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 300%;
+      height: 300%;
+      background: rgba(255, 255, 255, 0.1);
+      transition: 0.6s ease;
+      transform: translate(-50%, -50%) scale(0);
+      border-radius: 50%;
+    }
+
+    .intro button:active::after {
+      transform: translate(-50%, -50%) scale(1);
+      transition: 0s;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 25px #ff79c6; }
+      50% { box-shadow: 0 0 35px #ff79c6; transform: scale(1.1); }
+    }
+
+    .container {
+      display: none;
+      flex-direction: column;
+      gap: 25px;
+      padding: 50px 20px;
+      background: url('https://i.imgur.com/Dcbv1TW.png') no-repeat center center/cover;
+      background-attachment: fixed;
+      transition: opacity 1s ease;
+      opacity: 0;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      padding: 30px;
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1s forwards ease;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .card:nth-child(even) {
+      animation-delay: 0.3s;
+    }
+
+    .card:nth-child(odd) {
+      animation-delay: 0.6s;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card h2 {
+      color: #ff79c6;
+      margin-bottom: 15px;
+      text-shadow: 0 0 15px #ff79c6;
+    }
+
+    .card p {
+      color: #ddd;
+      margin-bottom: 15px;
+    }
+
+    .card a {
+      color: #ff79c6;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .card a:hover {
+      color: #fff;
+      text-shadow: 0 0 10px #ff79c6;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      background: #111;
+      color: #aaa;
+    }
+
+    footer a {
+      color: #ff79c6;
+      text-decoration: none;
+    }
+
+    .falling-flowers {
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    .falling-flowers span {
+      position: absolute;
+      font-size: 3em;
+      animation: fallEffect 10s linear infinite, horizontalMovement 3s ease-in-out infinite;
+      will-change: transform, opacity;
+    }
+
+    @keyframes fallEffect {
+      0% {
+        top: -50px;
+        opacity: 1;
+      }
+      100% {
+        top: 100vh;
+        opacity: 0;
+      }
+    }
+
+    @keyframes horizontalMovement {
+      0% {
+        left: 0;
+      }
+      25% {
+        left: 20%;
+      }
+      50% {
+        left: 40%;
+      }
+      75% {
+        left: 60%;
+      }
+      100% {
+        left: 80%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    Rakib's Premium API Showcase
+  </header>
+
+  <div class="falling-flowers" id="fallingFlowers">
+    <!-- Falling roses will be dynamically added here -->
+  </div>
+
+  <div class="intro">
+    <h2>Welcome to the Future of APIs</h2>
+    <button onclick="navigateToPage();">Explore Now</button>
+  </div>
+
+  <div class="container" id="nextPageContent">
+    <div class="card">
+      <h2>API 1</h2>
+      <p>Explore the power of API 1 and integrate it seamlessly into your projects.</p>
+      <a href="https://api.example.com">Explore API 1</a>
+    </div>
+    <div class="card">
+      <h2>API 2</h2>
+      <p>API 2 offers a wide range of features that will take your app to the next level.</p>
+      <a href="https://api.example.com">Explore API 2</a>
+    </div>
+    <div class="card">
+      <h2>API 3</h2>
+      <p>With API 3, you can automate tasks and enhance your web applications.</p>
+      <a href="https://api.example.com">Explore API 3</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>Contact me on <a href="https://wa.me/yourwhatsappnumber" target="_blank">WhatsApp</a></p>
+    <p>Follow me on <a href="https://facebook.com/yourfacebookprofile" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" width="20" height="20"> Facebook</a></p>
+  </footer>
+
+  <script>
+    function navigateToPage() {
+      const nextPageContent = document.getElementById('nextPageContent');
+      const button = document.querySelector('.intro button');
+
+      const clickSound = new Audio('https://www.soundjay.com/button/beep-07.wav');
+      clickSound.play();
+
+      setTimeout(() => {
+        document.querySelector('.intro').style.display = 'none';
+        nextPageContent.style.display = 'flex';
+        nextPageContent.style.opacity = 1;
+      }, 1000);
+    }
+
+    // Function to create falling roses randomly
+    function createFallingRoses() {
+      const flowerContainer = document.getElementById('fallingFlowers');
+      const totalFlowers = 30; // Number of roses to fall
+
+      for (let i = 0; i < totalFlowers; i++) {
+        const flower = document.createElement('span');
+        
+        // Randomizing the initial position and animation timing
+        flower.style.left = Math.random() * 100 + '%';
+        flower.style.animationDuration = Math.random() * 5 + 5 + 's'; // Random fall speed
+        flower.style.animationDelay = Math.random() * 5 + 's'; // Random start delay
+
+        flowerContainer.appendChild(flower);
+      }
+    }
+
+    // Call function to create roses on page load
+    createFallingRoses();
+  </script>
+</body>
+</html>
