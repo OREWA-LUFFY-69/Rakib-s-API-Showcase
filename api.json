@@ -3,7 +3,51 @@
     {
       "name": "Imgbb",
       "description": "rakib-imgbb-api is an API designed to facilitate image uploads to ImgBB. It allows users to upload images directly and receive a public URL for easy sharing. This API simplifies the bot to make a url from image.made by Rakib Adil.",
-      "url": "rakib-imgbb-api.onrender.com"
+      "code": "const axios = require('axios');
+
+module.exports = {
+  config: {
+    name: "imgbb",
+    version: "1.0",
+    author: "Rakib Adil",
+    countDown: 5,
+    role: 0,
+    shortDescription: {
+      en: "Upload image to Imgbb"
+    },
+    longDescription: {
+      en: "Upload image to Imgbb by replying to an image. this is a no prefix command maked by Rakib Adil"
+    },
+    category: "tools",
+    guide: {
+      en: "Reply to an image to upload it."
+    }
+  },
+
+  onStart: async function ({ api, event }) {
+    console.log("imgur command initialized.");
+  },
+
+  onChat: async function ({ api, event }) {
+    const message = event.body.trim().toLowerCase();
+    if (message !== "imgbb") return;
+
+    const imageUrl = event.messageReply?.attachments[0]?.url;
+    if (!imageUrl) {
+      return api.sendMessage('Please reply to an image.', event.threadID, event.messageID);
+    }
+
+    try {
+      const res = await axios.get(`https://rakib-imgbb-api.onrender.com/upload?url=${encodeURIComponent(imageUrl)}`);
+      const { image } = res.data;
+
+      return api.sendMessage(`✅ **Image uploaded successfully!** 🎉\n\n🔗 **Image URL**: ${image}\n\n- Powered by 𝗥𝗮𝗸𝗶𝗯 𝗔𝗱𝗶𝗹👑`, event.threadID, event.messageID);
+    } catch (error) {
+      console.log(error);
+      return api.sendMessage('Failed to upload image to Imgbb.', event.threadID, event.messageID);
+    }
+  }
+};"
     },
     {
       "name": "API 2",
