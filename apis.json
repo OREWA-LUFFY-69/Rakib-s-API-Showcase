@@ -1,0 +1,17 @@
+[
+  {
+    "name": "API 1",
+    "description": "Explore the power of API 1 and integrate it seamlessly into your projects.",
+    "link": "https://api.example.com"
+  },
+  {
+    "name": "API 2",
+    "description": "API 2 offers a wide range of features that will take your app to the next level.",
+    "link": "https://api.example.com"
+  },
+  {
+    "name": "API 3",
+    "description": "With API 3, you can automate tasks and enhance your web applications.",
+    "link": "https://api.example.com"
+  }
+]
