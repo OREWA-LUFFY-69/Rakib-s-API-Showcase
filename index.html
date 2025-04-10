@@ -6,7 +6,6 @@
   <title>Rakib's Premium API Showcase</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     body, html {
       font-family: 'Segoe UI', sans-serif;
       height: 100vh;
@@ -16,15 +15,20 @@
       display: flex;
       flex-direction: column;
     }
-
     header {
       text-align: center;
-      padding: 40px 20px;
-      font-size: 3em;
-      font-weight: 700;
-      text-shadow: 0 0 25px #ff79c6, 0 0 30px #ff79c6, 0 0 35px #ff79c6;
+      padding: 20px;
+      font-size: 2.5em;
+      font-weight: bold;
+      text-shadow: 0 0 20px #ff79c6;
       background: #222;
-      margin-bottom: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+      animation: glowEffect 2s infinite alternate;
+    }
+
+    @keyframes glowEffect {
+      0% { text-shadow: 0 0 10px #ff79c6, 0 0 20px #ff79c6, 0 0 30px #ff79c6; }
+      100% { text-shadow: 0 0 20px #ff79c6, 0 0 40px #ff79c6, 0 0 60px #ff79c6; }
     }
 
     .intro, .container, .details {
@@ -35,7 +39,7 @@
       flex-direction: column;
       text-align: center;
       padding: 20px;
-      animation: fadeIn 1s ease-in-out;
+      animation: fadeIn 1.5s ease-in-out;
     }
 
     .intro {
@@ -64,112 +68,91 @@
     }
 
     .intro h2 {
-      font-size: 3.5em;
-      margin-bottom: 30px;
-      text-shadow: 0 0 20px #ff79c6, 0 0 30px #ff79c6;
-      animation: glowingText 2s ease-in-out infinite;
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      text-shadow: 0 0 20px #ff79c6;
+      color: #fff;
+      animation: textGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes textGlow {
+      0% { text-shadow: 0 0 10px #ff79c6, 0 0 20px #ff79c6, 0 0 30px #ff79c6; }
+      100% { text-shadow: 0 0 20px #ff79c6, 0 0 40px #ff79c6, 0 0 60px #ff79c6; }
     }
 
     .intro button {
       background: rgba(0, 0, 0, 0.7);
-      border: 3px solid #ff79c6;
-      padding: 25px 60px;
-      font-size: 1.6em;
-      border-radius: 15px;
+      border: 2px solid #ff79c6;
+      padding: 20px 50px;
+      font-size: 1.4em;
+      border-radius: 12px;
       color: #ff79c6;
       cursor: pointer;
-      box-shadow: 0 0 35px #ff79c6;
-      transition: 0.4s ease-in-out;
-      letter-spacing: 1px;
+      box-shadow: 0 0 25px #ff79c6;
+      transition: 0.3s;
     }
 
     .intro button:hover {
       background: #ff79c6;
-      color: #111;
-      transform: scale(1.1);
-      box-shadow: 0 0 40px #ff79c6;
+      color: #000;
+      transform: scale(1.05);
     }
 
-    .intro button:active {
-      transform: scale(0.98);
+    .card {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      padding: 30px;
+      margin: 10px;
+      width: 90%;
+      max-width: 600px;
+      cursor: pointer;
+      transition: 0.3s;
+      animation: slideIn 0.5s ease-in-out;
     }
 
-    @keyframes glowingText {
-      0% { text-shadow: 0 0 15px #ff79c6, 0 0 25px #ff79c6, 0 0 35px #ff79c6, 0 0 45px #ff79c6; }
-      50% { text-shadow: 0 0 20px #ff79c6, 0 0 30px #ff79c6, 0 0 40px #ff79c6, 0 0 50px #ff79c6; }
-      100% { text-shadow: 0 0 15px #ff79c6, 0 0 25px #ff79c6, 0 0 35px #ff79c6, 0 0 45px #ff79c6; }
+    @keyframes slideIn {
+      0% { transform: translateY(20px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
     }
+
+    .card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .card h2 { color: #ff79c6; }
+    .card p { color: #ddd; }
 
     footer {
       text-align: center;
-      padding: 25px;
+      padding: 15px;
       background: #111;
       color: #aaa;
-      font-size: 1.2em;
-      letter-spacing: 1px;
-    }
-
-    footer a {
-      color: #ff79c6;
-      text-decoration: none;
-      font-weight: bold;
     }
 
     .back-btn {
       margin-top: 30px;
-      padding: 15px 35px;
-      font-size: 1.3em;
+      padding: 12px 30px;
+      font-size: 1.2em;
       background: #ff79c6;
       border: none;
-      border-radius: 12px;
+      border-radius: 10px;
       cursor: pointer;
       color: #000;
       transition: 0.3s;
     }
 
     .back-btn:hover {
-      background: #ff9ac7;
+      background: #f5578e;
       transform: scale(1.05);
-    }
-
-    .back-btn:active {
-      transform: scale(0.98);
-    }
-
-    .card {
-      background: rgba(0, 0, 0, 0.7);
-      padding: 20px;
-      margin: 20px;
-      border-radius: 15px;
-      width: 300px;
-      box-shadow: 0 0 20px #ff79c6;
-      transition: 0.3s ease;
-    }
-
-    .card h2 {
-      font-size: 1.8em;
-      color: #ff79c6;
-      text-transform: uppercase;
-    }
-
-    .card p {
-      font-size: 1.1em;
-      color: #fff;
-    }
-
-    .card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 30px #ff79c6;
-    }
-
-    .card:active {
-      transform: scale(0.98);
     }
 
     @media (max-width: 768px) {
-      .intro h2 { font-size: 2.5em; }
-      .intro button { font-size: 1.4em; padding: 18px 45px; }
-      .card { width: 250px; }
+      .intro h2 { font-size: 2em; }
+      .intro button { font-size: 1.1em; }
+      .card { padding: 20px; }
+      footer { font-size: 0.9em; }
     }
   </style>
 </head>
@@ -236,7 +219,6 @@
         });
       });
   }
-
 </script>
 
 </body>
