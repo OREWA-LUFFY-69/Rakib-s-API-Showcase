@@ -273,23 +273,7 @@
     <button onclick="navigateToPage();">Explore Now</button>
   </div>
 
-  <div class="container" id="nextPageContent">
-    <div class="card">
-      <h2>API 1</h2>
-      <p>Explore the power of API 1 and integrate it seamlessly into your projects.</p>
-      <a href="https://api.example.com">Explore API 1</a>
-    </div>
-    <div class="card">
-      <h2>API 2</h2>
-      <p>API 2 offers a wide range of features that will take your app to the next level.</p>
-      <a href="https://api.example.com">Explore API 2</a>
-    </div>
-    <div class="card">
-      <h2>API 3</h2>
-      <p>With API 3, you can automate tasks and enhance your web applications.</p>
-      <a href="https://api.example.com">Explore API 3</a>
-    </div>
-  </div>
+  <div class="container" id="nextPageContent"></div>
 
   <footer>
     <p>Contact me on <a href="https://wa.me/+8801811276038" target="_blank">WhatsApp</a></p>
@@ -307,7 +291,31 @@
         document.querySelector('.intro').style.display = 'none';
         nextPageContent.style.display = 'flex';
         nextPageContent.style.opacity = 1;
+        loadAPIs();
       }, 1000);
+    }
+
+    function loadAPIs() {
+      fetch('api.json')
+        .then(response => response.json())
+        .then(data => {
+          const container = document.getElementById('nextPageContent');
+          container.innerHTML = ''; // Clear any existing content
+
+          data.apis.forEach(api => {
+            const card = document.createElement('div');
+            card.classList.add('card');
+            card.innerHTML = `
+              <h2>${api.name}</h2>
+              <p>${api.description}</p>
+              <a href="${api.url}" target="_blank">Explore ${api.name}</a>
+            `;
+            container.appendChild(card);
+          });
+        })
+        .catch(error => {
+          console.error('Error loading APIs:', error);
+        });
     }
 
     function createFallingRoses() {
