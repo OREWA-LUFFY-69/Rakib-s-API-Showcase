@@ -6,6 +6,7 @@
   <title>Rakib's Premium API Showcase</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body, html {
       font-family: 'Segoe UI', sans-serif;
       height: 100vh;
@@ -18,18 +19,12 @@
 
     header {
       text-align: center;
-      padding: 20px;
-      font-size: 2.5em;
-      font-weight: bold;
-      text-shadow: 0 0 20px #ff79c6;
+      padding: 40px 20px;
+      font-size: 3em;
+      font-weight: 700;
+      text-shadow: 0 0 25px #ff79c6, 0 0 30px #ff79c6, 0 0 35px #ff79c6;
       background: #222;
-      animation: headerGlow 3s infinite;
-    }
-
-    @keyframes headerGlow {
-      0% { text-shadow: 0 0 10px #ff79c6, 0 0 20px #ff79c6; }
-      50% { text-shadow: 0 0 20px #ff79c6, 0 0 30px #ff79c6; }
-      100% { text-shadow: 0 0 10px #ff79c6, 0 0 20px #ff79c6; }
+      margin-bottom: 20px;
     }
 
     .intro, .container, .details {
@@ -40,6 +35,7 @@
       flex-direction: column;
       text-align: center;
       padding: 20px;
+      animation: fadeIn 1s ease-in-out;
     }
 
     .intro {
@@ -62,78 +58,118 @@
       100% { background-size: 100%; }
     }
 
-    .intro h2 {
-      font-size: 2.5em;
-      margin-bottom: 20px;
-      color: #ff79c6;
-      animation: textGlow 2s infinite alternate;
-      text-shadow: 0 0 10px #ff79c6, 0 0 20px #ff79c6;
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
     }
 
-    @keyframes textGlow {
-      0% { color: #ff79c6; text-shadow: 0 0 10px #ff79c6, 0 0 20px #ff79c6; }
-      100% { color: #ff00ff; text-shadow: 0 0 30px #ff00ff, 0 0 40px #ff00ff; }
+    .intro h2 {
+      font-size: 3.5em;
+      margin-bottom: 30px;
+      text-shadow: 0 0 20px #ff79c6, 0 0 30px #ff79c6;
+      animation: glowingText 2s ease-in-out infinite;
     }
 
     .intro button {
       background: rgba(0, 0, 0, 0.7);
-      border: 2px solid #ff79c6;
-      padding: 20px 50px;
-      font-size: 1.4em;
-      border-radius: 12px;
+      border: 3px solid #ff79c6;
+      padding: 25px 60px;
+      font-size: 1.6em;
+      border-radius: 15px;
       color: #ff79c6;
       cursor: pointer;
-      box-shadow: 0 0 25px #ff79c6;
-      transition: 0.3s ease-in-out;
+      box-shadow: 0 0 35px #ff79c6;
+      transition: 0.4s ease-in-out;
+      letter-spacing: 1px;
     }
 
     .intro button:hover {
+      background: #ff79c6;
+      color: #111;
       transform: scale(1.1);
+      box-shadow: 0 0 40px #ff79c6;
     }
 
-    .card {
-      background: rgba(255, 255, 255, 0.07);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 15px;
-      padding: 30px;
-      margin: 10px;
-      width: 90%;
-      max-width: 600px;
-      cursor: pointer;
-      transition: 0.3s;
-      color: #fff;
+    .intro button:active {
+      transform: scale(0.98);
     }
 
-    .card:hover {
-      transform: scale(1.03);
-      box-shadow: 0 0 15px #ff79c6;
+    @keyframes glowingText {
+      0% { text-shadow: 0 0 15px #ff79c6, 0 0 25px #ff79c6, 0 0 35px #ff79c6, 0 0 45px #ff79c6; }
+      50% { text-shadow: 0 0 20px #ff79c6, 0 0 30px #ff79c6, 0 0 40px #ff79c6, 0 0 50px #ff79c6; }
+      100% { text-shadow: 0 0 15px #ff79c6, 0 0 25px #ff79c6, 0 0 35px #ff79c6, 0 0 45px #ff79c6; }
     }
-
-    .card h2 { color: #ff79c6; }
-    .card p { color: #ddd; }
 
     footer {
       text-align: center;
-      padding: 15px;
+      padding: 25px;
       background: #111;
       color: #aaa;
+      font-size: 1.2em;
+      letter-spacing: 1px;
+    }
+
+    footer a {
+      color: #ff79c6;
+      text-decoration: none;
+      font-weight: bold;
     }
 
     .back-btn {
       margin-top: 30px;
-      padding: 12px 30px;
-      font-size: 1.2em;
+      padding: 15px 35px;
+      font-size: 1.3em;
       background: #ff79c6;
       border: none;
-      border-radius: 10px;
+      border-radius: 12px;
       cursor: pointer;
       color: #000;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      background: #ff9ac7;
+      transform: scale(1.05);
+    }
+
+    .back-btn:active {
+      transform: scale(0.98);
+    }
+
+    .card {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+      margin: 20px;
+      border-radius: 15px;
+      width: 300px;
+      box-shadow: 0 0 20px #ff79c6;
+      transition: 0.3s ease;
+    }
+
+    .card h2 {
+      font-size: 1.8em;
+      color: #ff79c6;
+      text-transform: uppercase;
+    }
+
+    .card p {
+      font-size: 1.1em;
+      color: #fff;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px #ff79c6;
+    }
+
+    .card:active {
+      transform: scale(0.98);
     }
 
     @media (max-width: 768px) {
-      .intro h2 { font-size: 2em; }
-      .intro button { font-size: 1.1em; }
-      .card { padding: 20px; }
+      .intro h2 { font-size: 2.5em; }
+      .intro button { font-size: 1.4em; padding: 18px 45px; }
+      .card { width: 250px; }
     }
   </style>
 </head>
@@ -163,35 +199,10 @@
   const page2 = document.getElementById("page2");
   const page3 = document.getElementById("page3");
 
-  // Fetch the APIs from api.json (direct fetch from file)
-  async function fetchAPIs() {
-    try {
-      const response = await fetch('api.json'); // Directly fetch from the file in the same directory
-      if (!response.ok) {
-        throw new Error('Network response was not ok ' + response.statusText);
-      }
-      const data = await response.json();
-      const apiList = data.apis; // Access the 'apis' array from the JSON structure
-      apiList.forEach(api => {
-        const apiCard = document.createElement("div");
-        apiCard.classList.add("card");
-        apiCard.innerHTML = `
-          <h2>${api.name}</h2>
-          <p>${api.description}</p>
-          <button onclick="goToPage3(${JSON.stringify(api)})">Learn More</button>
-        `;
-        page2.appendChild(apiCard);
-      });
-      page2.style.display = "flex";
-    } catch (error) {
-      console.error('Error loading API data:', error);
-    }
-  }
-
   function goToPage2() {
     page1.style.display = "none";
     page2.style.display = "flex";
-    fetchAPIs();  // Fetch and display APIs on page 2
+    loadAPIs();
   }
 
   function goToPage3(api) {
@@ -201,7 +212,7 @@
     page3.innerHTML = `
       <h2>${api.name}</h2>
       <p>${api.description}</p>
-      <a href="https://${api.url}" target="_blank">Visit API</a>
+      <a href="${api.url}" target="_blank">Visit API</a>
       <button class="back-btn" onclick="goBackToPage2()">Back</button>
     `;
   }
@@ -210,6 +221,22 @@
     page3.style.display = "none";
     page2.style.display = "flex";
   }
+
+  function loadAPIs() {
+    fetch('api.json')
+      .then(res => res.json())
+      .then(data => {
+        page2.innerHTML = '';
+        data.apis.forEach(api => {
+          const div = document.createElement("div");
+          div.className = "card";
+          div.innerHTML = `<h2>${api.name}</h2><p>${api.description}</p>`;
+          div.onclick = () => goToPage3(api);
+          page2.appendChild(div);
+        });
+      });
+  }
+
 </script>
 
 </body>
