@@ -15,6 +15,7 @@
       display: flex;
       flex-direction: column;
     }
+
     header {
       text-align: center;
       padding: 20px;
@@ -23,12 +24,18 @@
       text-shadow: 0 0 20px #ff79c6;
       background: #222;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
-      animation: glowEffect 2s infinite alternate;
+      animation: glowEffect 2s infinite alternate, moveHeader 5s ease-in-out infinite;
     }
 
     @keyframes glowEffect {
       0% { text-shadow: 0 0 10px #ff79c6, 0 0 20px #ff79c6, 0 0 30px #ff79c6; }
       100% { text-shadow: 0 0 20px #ff79c6, 0 0 40px #ff79c6, 0 0 60px #ff79c6; }
+    }
+
+    @keyframes moveHeader {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
     }
 
     .intro, .container, .details {
@@ -164,8 +171,22 @@
       background: #f5578e;
       transform: scale(1.05);
     }
+    /* Code Box Styles */
+    .code-box {
+      background : rgba(255, 0, 196, 0.14);
+      box-shadow:00 0 30px #FF0000;
+      border: 12px solid #9B2DFA26;
+      border-radius: 10px;
+      padding: 20px;
+      color: #FFFFFF;
+      font-family: 'Courier New', Courier, monospace;
+      white-space: pre-wrap;
+      margin-top: 20px;
+      width: 90%;
+      max-width: 600px;
+      word-wrap: break-word;
+    }
 
-    /* Pop-up Message Styles */
     #copy-msg {
       position: fixed;
       top: 50%;
@@ -235,10 +256,14 @@
     page2.style.display = "none";
     page3.style.display = "flex";
 
+    // Add code box and API description
     page3.innerHTML = `
       <h2>${api.name}</h2>
-      <p id="api-description">${api.description}</p>
-      <a href="${api.url}" target="_blank">Visit Cmds</a>
+      <div class="code-box">
+        <code>
+          ${api.code}
+        </code>
+      </div>
       <button class="copy-btn" onclick="copyText()">Copy</button>
       <button class="back-btn" onclick="goBackToPage2()">Back</button>
     `;
@@ -266,10 +291,8 @@
 
   // Copy text function
   function copyText() {
-    // Select the text inside the description
-    const text = document.getElementById("api-description").innerText;
+    const text = document.querySelector(".code-box code").innerText;
 
-    // Create a temporary textarea to copy the text
     const textArea = document.createElement("textarea");
     textArea.value = text;
     document.body.appendChild(textArea);
@@ -277,10 +300,7 @@
     document.execCommand("copy");
     document.body.removeChild(textArea);
 
-    // Display the pop-up message
     copyMsg.style.display = "block";
-
-    // Hide the pop-up message after 2 seconds
     setTimeout(() => {
       copyMsg.style.display = "none";
     }, 2000);
